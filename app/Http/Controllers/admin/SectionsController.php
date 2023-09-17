@@ -27,15 +27,23 @@ class SectionsController extends Controller
 
     public function store(Request $request)
     {
+        if (count($request->file('gifs')) !== 3) {
+            return redirect()->route('admin.sections.create')
+                ->withInput()
+                ->withErrors(['gifs' => 'يجب ادخال ثلاثة صور']);
+        }
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required', 
-            'gifs' => 'nullable|array',
-            'gifs.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+            'gifs' => 'required|array|size:3',
+            'gifs.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tiny_description' => 'required|string|max:30',
             'tiny_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate tiny_image
+          
         ]);
-    
+
+        
+        
         $section = new Section();
         $section->name = $validatedData['name'];
         $section->description = $validatedData['description'];
@@ -75,8 +83,9 @@ class SectionsController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'gifs' => 'nullable|array',
+            'gifs' => 'required|array|size:3',
             'gifs.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                       
             'tiny_description' => 'required|string|max:30', 
 'tiny_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate tiny_image
         ]);

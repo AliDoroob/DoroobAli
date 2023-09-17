@@ -447,8 +447,73 @@
 }
 
 
+/* CSS for the hover effect and arrow icon */
+.hover-arrow {
+    margin-left: 5px; /* Add space between the text and arrow */
+    transition: margin-left 0.3s ease-in-out; /* Add a smooth transition effect */
+    opacity: 0; /* Initially hide the arrow */
+}
 
+/* Define hover behavior */
+.btn:hover .hover-arrow {
+    margin-left: 10px; /* Move the arrow to the right on hover */
+    opacity: 1; /* Show the arrow on hover */
+}
 
+/* Modal header styling */
+.modal-header {
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        border-bottom: none;
+    }
+
+    .modal-header h5 {
+        font-size: 24px;
+    }
+
+    /* Modal body styling */
+    .modal-body {
+        text-align: right;
+        padding: 20px;
+    }
+
+    #projectName {
+        font-size: 22px;
+        color: #333;
+    }
+
+    #projectImage {
+        max-width: 100%;
+        height: auto;
+    }
+
+    #projectDescription {
+        font-size: 16px;
+        color: #777;
+    }
+
+    #projectContent {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.5;
+        margin-top: 20px;
+    }
+
+    #projectLink {
+        margin-top: 20px;
+    }
+
+    /* Close button styling */
+    .modal-header .close {
+        color: #fff;
+        font-size: 30px;
+    }
+
+    /* Add a shadow to the modal */
+    .modal-content {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
 
 
@@ -545,7 +610,7 @@
             @endphp
             @if ($visibleServices->count() > 0)
                 <div class="container text-center mt-5">
-                    <h1 class="display-4">خدمات الإنتاج</h1>
+                    <h1 class="display-4">الخدمات </h1>
                 </div>
                 <hr class="my-4">
                 <div class="container">
@@ -630,9 +695,8 @@
     </div>
 </div>
         </div>
-    
     </div>
-    <br><br>
+    <br>
     <div class="text-center">
         <a href="{{ route('news', ['section_id' => $section->id]) }}" class="btn btn-light btn-outline-primary">عرض المزيد</a>
     </div>
@@ -648,18 +712,18 @@ $businessCount = $visibleBusinesses->count();
     <div class="container" id="business">
         <div class="row">
             <div class="col-md-12">
-                <div class="container text-center">
-                    <h1>معرض أعمال الانتاج</h1>
+                <div class="container text-center" style="height: 90px;">
+                    <h1>معرض الأعمال </h1>
                 </div>
                 <div class="image-transition-container">
                     @foreach ($visibleBusinesses as $index => $business)
                     <div class="image-transition-item {{ $index === ($businessCount/2) ? 'active' : '' }}">
                         <div class="custom-image-container" style="background-image: url('{{ asset('images/' . $business->image) }}');">     
-                            <img src="{{ asset('images/' . $business->image) }}" alt="{{ $business->name }}">
+                            <img src="{{ asset('images/' . $business->image) }}" alt="{{ $business->name }}" style="height: 500px;">
                             <div class="centered-icon">
                                 <div class="play-icon">
                                     <a href="#" data-toggle="modal" data-target="#youtubeModal{{$index}}">
-                                        <i class="fa fa-play-circle fa-4x" style="color: white;"></i>
+                                        <i class="fa fa-play-circle fa-4x animated-icon" style="color: white;"></i>
                                     </a>
                                 </div>
                             </div>
@@ -716,30 +780,57 @@ $visibleProjects = $projects->where('is_visible', 'is_visible');
     <div class="container" id="projects">
     <div class="row">
      
-            <div class="container text-center mt-5">
-                <h1 class="display-4">مشاريعنا في الإنتاج</h1>
+            <div class="container text-center mt-5" style="height: 110px;">
+                <h1 class="display-4">المشاريع  </h1>
             </div>
             <hr class="my-4">
             <div class="container">
                 <div class="row">
                     @foreach ($visibleProjects as $project)
                         <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                            <div class="solution-card text-center">
+                            <div class="solution-card text-center d-flex flex-column h-100">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <div class="circle-image">
-                                        <img src="{{ asset('images/' . $project->image) }}" alt="{{ $project->name }}" class="rounded-circle" width="100" height="100" style="object-fit:cover;">
-                                    </div>&nbsp;&nbsp;&nbsp;
-                                    <h5 class="text-color-light">{{ $project->name }}</h5>
+                                        <img src="{{ asset('images/' . $project->image) }}" alt="{{ $project->name }}" class="rounded-circle" width="100" height="100" style="object-fit: cover;">
+                                    </div>
+                                    <h5 class="text-color-light mt-3">{{ $project->name }}</h5>
                                 </div>
-                                <br>
-                                <p class="text-color-blue project-card-text fw-bold text-right">
+                                <p class="text-color-blue project-card-text fw-bold text-right flex-fill">
                                     {{ $project->description }} 
-                                </p>    
+                                </p>
+                                <div class="mt-auto">
+
+                                    <a href="{{ $project->project_link }}" class="btn btn-light btn-outline-primary" style="border-radius:16px;border:none;" target="_blank">تعرف أكثر</a>
+
+                                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#projectModal{{$project->id}}" style="border-radius: 15px;">عرض تفاصيل المشروع</button>
+                                
+                                </div>
                             </div>
+                            <div class="modal fade" id="projectModal{{$project->id}}" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel{{$project->id}}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="projectModalLabel{{$project->id}}">تفاصيل المشروع</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h2 id="projectName{{$project->id}}" class="text-right">{{ $project->name }}</h2>
+                                            <img id="projectImage{{$project->id}}" src="{{ asset('images/' . $project->image) }}" alt="" class="img-fluid">
+                                            <p id="projectDescription{{$project->id}}" class="text-right" style="color: black; font-size: 20px;">{{ $project->description }}</p>
+                                            <div id="projectContent{{$project->id}}" class="text-right">{!! $project->content !!}</div>
+                                            <a id="projectLink{{$project->id}}" href="{{ $project->project_link }}" target="_blank" class="btn btn-primary">تعرف أكثر</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     @endforeach
                 </div>
             </div>
+            
         @endif
     </div>
 </div>
@@ -755,13 +846,16 @@ $visiblePartners = $partners->where('is_visible', 'is_visible');
     <div class="row partner-row">  
             <div class="container mt-3 text-center" style="position: relative; z-index: 1;">
                 <h1 class="display-4">شركاؤنا</h1>
-                <a href="{{ route('partners') }}" class="btn btn-light mt-3  btn-outline-primary" >الشركاء</a></div>
+                <a href="{{ route('partners') }}" class="btn btn-light mt-3  btn-outline-primary" >شركاؤنا</a></div>
             <div class="container" style="position: relative; z-index: 0; opacity:0.7;">
                 <div class="row">
                     @foreach ($visiblePartners as $partner)
                         <div class="col-md-3 mb-3">
                             <div class="image-overlay" style="background-image: none; width: 100%; height: 100%; ">
-                                <img src="{{ asset('images/' . $partner->image) }}" alt="{{ $partner->name }}" style="width: 100%; height: 100%;object-fit:cover;">
+                                <img src="{{ asset('images/' . $partner->image) }}" alt="{{ $partner->name }}" style="width: 100%; height: 100%;
+                                
+                                
+                                ">
                             </div>
                         </div>
                     @endforeach
@@ -809,5 +903,19 @@ $visiblePartners = $partners->where('is_visible', 'is_visible');
 <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>
 <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')}}"></script>
 <script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')}}"></script>
+<script>
+   $(document).ready(function () {
+        $('#showModalBtn').on('click', function () {
+            var button = $(this);
+
+            // Populate the modal with data attributes
+            $('#projectName').text(button.data('name'));
+            $('#projectDescription').text(button.data('description'));
+            $('#projectContent').html(button.data('content'));
+            $('#projectLink').attr('href', button.data('project-link'));
+        });
+    });
+</script>
+
 
 @endsection

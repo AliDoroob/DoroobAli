@@ -140,7 +140,7 @@
                         <li><a href="">الصفحة الرئيسية</a></li>
                         <li><a href="#news">أخبارنا</a></li>
                         <li class="dropdown">
-                            <a style="font-size: 20px; letter-spacing: 0px" href="#services" class="dropdown-toggle" data-toggle="dropdown">خدماتنا</a>
+                            <a style="font-size: 20px; letter-spacing: 0px" href="#services" class="dropdown-toggle" data-toggle="dropdown">أقسامنا</a>
                             <ul class="dropdown-menu animated fadeOutUp">
                                 @foreach ($sectionData as $section)
                                     <li><a href="{{ route('sections', ['section_id' => $section->id]) }}">{{ $section->name }}</a></li>
@@ -262,7 +262,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($section->is_visible === 'is_visible')
+                @if ($section->is_visible == 'is_visible')
                 <div class="row align-center" style="display: flex; flex-wrap: wrap;">
                     @foreach ($sectionData as $section)
                         <div class="col-lg-4 col-md-6"> <!-- Adjust the column size to your preference -->
@@ -306,9 +306,9 @@
         <div class="container-full">
             <div class="projects-carousel owl-carousel owl-theme">
                 @foreach ($business as $businessItem)
-                <div class="item">
+                <div class="item" style="margin-left:20%;">
                     <div class="item-inner">
-                        <img src="{{ asset('images/' . $businessItem->image) }}" alt="{{ $businessItem->name }}">
+                        <img src="{{ asset('images/' . $businessItem->image) }}" alt="{{ $businessItem->name }}" style="width:500px;height:400px;object-fit:cover;">
                         <div class="overlay">
                             <div class="content">
                                 <span>{{ $businessItem->section->name ?? 'N/A' }}</span>
@@ -318,7 +318,7 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="text-center" style="padding-top: 50%;">
+                <div class="text-center" style="padding-top: 35%;">
                     <a href="{{ route('business_public') }}" class="btn btn-dark">
                         عرض المزيد <i class="fas fa-arrow-right"></i>
                     </a>

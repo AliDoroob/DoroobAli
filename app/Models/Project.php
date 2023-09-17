@@ -8,7 +8,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image','description', 'name', 'section_id'];
+    protected $fillable = ['image','description', 'name', 'section_id','content','project_link'];
 
     public function section()
     {

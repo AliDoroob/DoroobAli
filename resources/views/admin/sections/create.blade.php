@@ -50,10 +50,9 @@
                             </div>
                             
                             <div class="form-group row">
-                                <label for="gifs" class="col-md-4 col-form-label text-md-right">{{ __('اختر 3 صور ') }}</label>
-
+                                <label for="gifs" class="col-md-4 col-form-label text-md-right">{{ __('اختر 3 صور') }}</label>
                                 <div class="col-md-6">
-                                    <input id="gifs" type="file" class="form-control-file @error('gifs') is-invalid @enderror" name="gifs[]" multiple required>
+                                    <input id="gifs" type="file" class="form-control-file @error('gifs') is-invalid @enderror" name="gifs[]" multiple accept=".jpg, .jpeg, .png, .gif, .svg" required>
                                     @error('gifs')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -61,10 +60,13 @@
                                     @enderror
                                 </div>
                             </div>
+                            
                             <div class="form-group">
                                 <label for="tiny_image">صورة مصغرة</label>
-                                <input type="file" name="tiny_image" class="form-control" accept="image/*">
+                                <input type="file" name="tiny_image" class="form-control" accept="image/*" onchange="displaySelectedImage(this)">
                             </div>
+                            <img id="selectedImage" src="#" alt="Selected Image" style="display: none;hieght:100px;width:100px;">
+                            
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -78,4 +80,21 @@
             </div>
         </div>
     </div>
+    <script>
+        function displaySelectedImage(input) {
+    var selectedImage = document.getElementById('selectedImage');
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            selectedImage.src = e.target.result;
+            selectedImage.style.display = 'block';
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+    </script>
 @endsection

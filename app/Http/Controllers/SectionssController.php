@@ -14,11 +14,11 @@ use App\Models\Service;
 
 class SectionssController extends Controller
 {
-    //
-public function showDoroobSection()
+
+    public function showDoroobSection()
 {
     // Retrieve all data from the 'sections' table
-    $sectionData = Section::all();
+    $sectionData = Section::Where('is_visible',true)->get();
     $news = News::orderBy('datetime', 'desc')->take(4)->get();
     $partners = Partner::all();
     $business = Business::with('section')
@@ -26,8 +26,8 @@ public function showDoroobSection()
     ->unique('section_id')
     ->values();
     return view('doroob', ['sectionData' => $sectionData,'news' =>$news,'partners' =>$partners,'business' =>$business]);
-   
 }
+
 public function show(Request $request, $section_id)
 {  
     $section = Section::find($section_id);
@@ -44,21 +44,23 @@ public function show(Request $request, $section_id)
     ->orWhere('section_id', $section_id)
     ->where('is_visible', true)
     ->where('datetime', '<=', $currentDatetimeString)
-    ->latest('updated_at') // Order by the most recent updated_at
-    ->limit(4)  // Limit the results to the last four records
+    ->latest('updated_at') 
+    ->limit(4)
     ->get();
     $projects = Project::where('section_id', $section_id)->get();
     $statistics = Statistic::where('section_id', $section_id)->get();
     $partners = Partner::all();
     return view('sections', compact('section', 'services', 'news', 'busnisses', 'projects', 'statistics', 'partners'));
 }
+
+
+
 public function showBusiness(Request $request, $section_id)
 {
     $section = Section::find($section_id);
     $businesses = Business::where('section_id', $section_id)
     ->where('is_visible', true)
     ->get();
-
     return view('businesses', compact('businesses'));
 }
 
@@ -67,7 +69,6 @@ public function showOwnBusiness($id)
 {
 
     $business = Business::find($id);
-
     // Check if the business exists
     if (!$business) {
         abort(404); // Display a 404 error if the business is not found
@@ -94,9 +95,7 @@ public function showOwnNews($id)
     // Check if the business exists
     if (!$news) {
         abort(404); // Display a 404 error if the business is not found
-    }
-
-    // Return the view with the business details
+    }   // Return the view with the business details
     return view('newsown', compact('news'));
 }
 }

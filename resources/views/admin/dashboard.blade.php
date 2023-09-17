@@ -39,6 +39,53 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-user fa-3x"></i> <!-- Change the icon here -->
+                                                    <h5 class="card-title mt-3">المستخدمين</h5>
+                                                    <p class="card-text" style="font-size: 40px">{{ \App\Models\User::count() }}</p>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-briefcase fa-3x"></i> <!-- Change the icon here to a business icon -->
+                                                    <h5 class="card-title mt-3">الأعمال</h5>
+                                                    <p class="card-text" style="font-size: 40px">{{ \App\Models\Business::count() }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-newspaper fa-3x"></i> <!-- Change the icon here to a newspaper icon -->
+                                                    <h5 class="card-title mt-3">الأخبار</h5>
+                                                    <p class="card-text" style="font-size: 40px">{{ \App\Models\News::count() }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-chart-pie fa-3x"></i> <!-- Change the icon here to a statistics icon -->
+                                                    <h5 class="card-title mt-3">الإحصائيات</h5>
+                                                    <p class="card-text" style="font-size: 40px">{{ \App\Models\Statistic::count() }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-handshake fa-3x"></i> <!-- Change the icon here to a handshake or partner icon -->
+                                                    <h5 class="card-title mt-3">الشركاء</h5>
+                                                    <p class="card-text" style="font-size: 40px">{{ \App\Models\Partner::count() }}</p>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                                                                                                      
                                     </div>
                                 </div>
                             </div>

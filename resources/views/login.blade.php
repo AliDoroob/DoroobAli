@@ -16,9 +16,6 @@
     text-align: center;
     margin-bottom: 20px;
 }
-
-
-
 .container {
     padding: 16px;
 }
@@ -67,7 +64,6 @@
     background-color: #d32f2f;
 }
     </style>
-
 <nav class="navbar navbar-expand-lg" style="height: 100px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fas fa-bars"></span>
@@ -90,17 +86,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" style="color: #0077ff">شركاءنا</a>
             </li>
-        </ul>
-        
-    </div></nav>
+        </ul>  
+    </div>
+</nav>
     <div class="container" style="direction: rtl">
         @if(session('success'))
         <div class="alert alert-primary"><h3>{{ session('success') }}</h3></div>
     @endif
-    <div class="container" style="direction: rtl">
-        @if(session('eroor'))
-        <div class="alert alert-danger"><h3>{{ session('eroor') }}</h3></div>
-    @endif
+        @if(session('error'))
+        <div class="alert alert-danger"><h3>{{ session('error') }}</h3></div>@endif
     <form action="{{route('login.submit')}}" method="post" class="login-form">
         @csrf
                 <div class="container">
@@ -110,7 +104,7 @@
             <label for="psw"><b>كلمة المرور</b></label>
             <input type="password" placeholder="أدخل كلمة المرور" name="password" required>
     
-            <button type="submit" class="login-btn">تسجيل الدخول</button>
+            <button type="submit" class="login-btn float-right">تسجيل الدخول</button>
             <label class="remember-me">
                 <input type="checkbox" checked="checked" name="remember">
                 تذكرني
@@ -121,6 +115,7 @@
             <button type="button" class="cancel-btn">إلغاء</button>
         </div>
     </form>
+</div>
     <br><br>
 @endsection
 

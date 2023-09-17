@@ -26,7 +26,7 @@
         </ul>
     </div>
 </nav>
-<div class="" style="margin-right: 9%;width:60%;height:800px;" >
+<div class="" style="margin-right: 9%;width:60%;height:1000px;" >
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">
@@ -40,7 +40,7 @@
                     </p>
                   <h4>{{ $business->name }}</h4>
                     <p class="text-dark">{{ $business->description }}</p>
-                  <div> 
+                  <div style=""> 
                     {!! $business->content !!}
                 </div>  
                 </div>

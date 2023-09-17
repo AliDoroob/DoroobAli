@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Section;
 
-
 class ServicesController extends Controller
 {
     public function index()
@@ -60,6 +59,7 @@ class ServicesController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
+            'name' => 'required',
             'description' => 'required',
             'gif' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -170,8 +170,6 @@ public function updateSectionPartnersVisibility(Request $request, $section_id)
 
     return back()->with('success', 'تم تحديث حالة الشركاء في القسم بنجاح.');
 }
-
-
 
 
 public function updateSectionStatisticsVisibility(Request $request, $section_id)

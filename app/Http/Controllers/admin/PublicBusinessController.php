@@ -79,19 +79,6 @@ class PublicBusinessController extends Controller
             ->with('success', 'تم اضافة العمل بنجاح');
     }
     
-    // Helper function to extract YouTube video ID from a URL
-    private function extractYouTubeVideoIdFromLink($link)
-    {
-        $videoId = '';
-        // Use regular expression to extract the video ID from the link
-        $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/';
-        if (preg_match($pattern, $link, $matches)) {
-            $videoId = $matches[1];
-        }
-        return $videoId;
-    }
-    
-    
     public function edit($id)
     {
         $sections = Section::all(); // Fetch all sections from the database
@@ -100,8 +87,7 @@ class PublicBusinessController extends Controller
     }
 
     // Update an existing Business model
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -123,17 +109,14 @@ class PublicBusinessController extends Controller
             $business->image = $imageName;
         }
 
-        // Handle the YouTube link
-        if ($request->filled('youtube_link')) {
-            // Validate and extract the YouTube video ID from the link
-            $videoId = $this->extractYouTubeVideoIdFromLink($request->input('youtube_link'));
+    // Handle the YouTube link
+    if ($request->filled('youtube_link')) {
+        // Validate and extract the YouTube video ID from the link
+        $videoId = $this->extractYouTubeVideoIdFromLink($request->input('youtube_link'));
 
-            // Save the YouTube video ID in the database
-            $business->youtube_link = $videoId;
-        } else {
-            // If no YouTube link is provided, you may want to clear the youtube_video_id field
-            $business->youtube_link = null;
-        }
+        // Save the YouTube video ID in the database
+        $validatedData['youtube_link'] = $videoId;
+    }
 
         // Update the Business model with the new data
         $business->update($validatedData);
@@ -162,6 +145,27 @@ class PublicBusinessController extends Controller
         return redirect()->route('admin.business_public.edit', $id)
             ->with('success', 'تم تحديث العمل بنجاح');
     }
+
+    // Helper function to extract YouTube video ID from a URL
+    private function extractYouTubeVideoIdFromLink($link)
+    {
+        $videoId = '';
+        // Use regular expression to extract the video ID from the link
+        $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/';
+        if (preg_match($pattern, $link, $matches)) {
+            $videoId = $matches[1];
+        }
+        return $videoId;
+    }
+    
+    
+
+
+
+
+
+
+
 
     public function destroy($id)
     {

@@ -27,6 +27,8 @@ class ProjectssController extends Controller
             'name' => 'required',
             'description' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'content' => 'required|string', // Add validation for the content field    
+            'project_link' => 'required|url', // You can add validation rules here
         ]);
 
         $validatedData['section_id'] = $request->input('section_id');
@@ -38,8 +40,11 @@ class ProjectssController extends Controller
             $validatedData['image'] = $imageName;          // Save the complete image name in validated data
         }
 
-        Project::create($validatedData);
-
+       
+      $project=  Project::create($validatedData);
+      $project->content = $request->input('content');
+      $project->project_link = $request->input('project_link');
+      $project->save();
        return back()->with('success', 'تمت إضافة المشروع بنجاح');
     }
 
@@ -54,7 +59,9 @@ class ProjectssController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'content' => 'required|string',   
+            'project_link' => 'required|url', 
         ]);
 
         $project = Project::findOrFail($id);
@@ -64,6 +71,11 @@ class ProjectssController extends Controller
             $request->file('image')->move('public/images', $imageName);
             $data['image'] = 'images/' . $imageName;
         }
+          $project->content = $request->input('content');
+          $project->save();
+
+          $project->project_link = $request->input('project_link');
+           $project->save();
 
         $project->update($data);
 

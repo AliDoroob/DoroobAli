@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('image'); // Add 'image' column
-            $table->string('name'); // Add 'name' column
+            $table->string('image'); 
+            $table->string('name');
             $table->text('description'); 
             $table->enum('is_visible', ['is_visible', 'not_visible'])->default('is_visible'); // Set the default value here
-            // Add 'description' column
+            $table->longText('content'); 
+            $table->string('project_link');
             $table->timestamps();
         });
     }

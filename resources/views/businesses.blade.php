@@ -41,6 +41,7 @@
     .custom-card .btn-primary i {
         margin-left: 5px;
     }
+    
 </style>
 <nav class="navbar navbar-expand-lg" style="height: 100px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,10 +72,10 @@
     <div class="row">
         @foreach ($businesses as $business)
         <div class="col-md-3 mb-4">
-            <div class="custom-card">
+            <div class="custom-card card">
                 <img src="{{ asset('images/' . $business->image) }}" class="card-img-top" alt="{{ $business->name }}">
                 <div class="card-body">
-                    <h6 class="card-title text-right">
+                    <h6 class="card-title text-right heading">
                         <a href="{{ route('businessesown', ['id' => $business->id]) }}" style="text-decoration: none; color: #333;">{{ $business->name }}</a>
                     </h6>
                     <p class="card-text text-right">{{ $business->description }}</p>
@@ -84,9 +85,6 @@
         @endforeach
     </div>
 </div>
-
-
-
 
 
 

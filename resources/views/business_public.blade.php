@@ -73,7 +73,7 @@
     <div class="row">
         @foreach ($businessPublic as $business)
         <div class="col-md-3 mb-4">
-            <div class="custom-card" >
+            <div class="custom-card"  >
                 <img src="{{ asset('images/' . $business->image) }}" class="card-img-top" alt="{{ $business->name }}">
                 <div class="card-body text-right">
                     <h6 class="card-title">
